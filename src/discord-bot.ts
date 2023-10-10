@@ -93,7 +93,7 @@ client.on(Events.MessageCreate, async (message: Message): Promise<any> => {
       const searchResults = await ytsr(msg);
 
       if (searchResults.items.length === 0) {
-        message.reply("No search results found.");
+        message.reply("Nadai ulih digiga utai ditaip nuan kaban. Taip baru.");
         return;
       }
 
@@ -102,16 +102,16 @@ client.on(Events.MessageCreate, async (message: Message): Promise<any> => {
         .map((result: any, index: any) => {
           const button = new ButtonBuilder()
             .setCustomId(`pasang-lagu:${result.url}`)
-            .setLabel(`${index + 1}. ${result.title}`)
+            .setLabel(`${index + 1}. ${(result.title).slice(0, 70)}`)
             .setStyle(ButtonStyle.Primary);
 
           return new ActionRowBuilder().addComponents(button);
         });
 
-      message.reply({ content: "Select a video to play:", components: rows });
+      message.reply({ content: "Pilih lagu deka dipasang nuan kaban:", components: rows });
     } catch (error) {
       console.error(error);
-      message.reply("An error occurred while searching for YouTube videos.");
+      message.reply("Bisi error ngiga lagu ba YouTube tu kaban.");
     }
   }
 });
