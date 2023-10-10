@@ -17,7 +17,7 @@ To add your own radio channel, follow these steps:
 ```bash
 docker build . -t <docker_image_name_or_id>;
 
-docker run -p <port>:<port>  <docker_image_name_or_id>;
+docker run --name <docker_container_name> -p <port>:<port>  <docker_image_name_or_id>;
 ```
 
 That's it! Your radio channel will now be available in the application.
