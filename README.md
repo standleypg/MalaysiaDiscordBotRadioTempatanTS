@@ -2,16 +2,8 @@
 
 This is a simple radio application that allows users to listen to their favorite radio channels. To add your own radio channel, simply add the URL to the `config.json` file.
 
-#####config.json file format
-```ts
-{
-    "API_KEY": "your_bot_token",
-    "PREFIX": "/",
-    "WAI_FM_URL":"url",
-    "TRAXX_FM_URL":"url",
-    "HITZ_FM_URL":"url"
-}
-```
+
+***Credit to [RTM Malaysia](https://www.rtm.gov.my) and [HITZ FM](https://hitz.syok.my/) for the radio URL.*** 
 
 ### Adding Your Own Radio Channel
 
