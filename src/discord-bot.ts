@@ -41,7 +41,8 @@ const helpMessage =
   "Hello kaban! Enti ka ngena bot tu, titih ka aja command ba baruh nya:\n" +
   "1. `/pasang-radio` - Belabuh masang radio ba voice channel alai nuan.\n" +
   "2. `/tukar-radio` - Milih radio baru deka dipasang ba voice channel alai nuan.\n" +
-  "3. `/tutup-radio` - Badu masang radio sereta bot deka ninggal ka voice channel alai nuan.";
+  "3. `/pasang-url` - Masang youtube url ba voice channel alai nuan.\n" +
+  "4. `/tutup-radio` - Badu masang radio sereta bot deka ninggal ka voice channel alai nuan.";
 
 client.once(Events.ClientReady, () => {
   console.log(`Logged in as ${client.user?.tag}`);
