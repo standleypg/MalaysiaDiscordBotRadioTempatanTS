@@ -23,4 +23,4 @@ To add your own radio channel, follow these steps:
 
 That's it! Your radio channel will now be available in the application.
 
-**Note that you need to host the radio channel yourself.
+**Note that you need to host the radio channel yourself. **Also**, you need ffmpeg installed on your server.
