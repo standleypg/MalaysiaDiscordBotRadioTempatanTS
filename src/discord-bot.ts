@@ -81,13 +81,17 @@ client.on(Events.MessageCreate, async (message: Message): Promise<any> => {
       await DestroyVoiceChannel(message.member?.voice.channel as VoiceChannel)
     );
   }
+
+if(command.startsWith("pasang-url")) {
+    await InitiateVoiceChannel<Message>(
+      message.content.split(" ")[1],
+      message,
+      message.member?.voice.channel as VoiceChannel
+    );
+}
+
   if (command.startsWith("pasang-lagu")) {
     const msg = message.content.split(" ")[1];
-    // await InitiateVoiceChannel<Message>(
-    //   url,
-    //   message,
-    //   message.member?.voice.channel as VoiceChannel
-    // );
 
     try {
       const searchResults = await ytsr(msg);
