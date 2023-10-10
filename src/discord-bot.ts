@@ -10,6 +10,8 @@ import {
   Interaction,
   CacheType,
   ButtonInteraction,
+  ButtonBuilder,
+  ButtonStyle,
 } from "discord.js";
 import {
   joinVoiceChannel,
@@ -22,6 +24,7 @@ import {
 import { ButtonId, buttonRows } from "./button-data";
 import { config } from "./config";
 import ytdl from "ytdl-core";
+import ytsr from "ytsr";
 
 const client = new Client({
   intents: [
@@ -41,7 +44,7 @@ const helpMessage =
   "Hello kaban! Enti ka ngena bot tu, titih ka aja command ba baruh nya:\n" +
   "1. `/pasang-radio` - Belabuh masang radio ba voice channel alai nuan.\n" +
   "2. `/tukar-radio` - Milih radio baru deka dipasang ba voice channel alai nuan.\n" +
-  "3. `/pasang-url` - Masang youtube url ba voice channel alai nuan.\n" +
+  "3. `/pasang-lagu` - Masang youtube lagu ba voice channel alai nuan.\n" +
   "4. `/tutup-radio` - Badu masang radio sereta bot deka ninggal ka voice channel alai nuan.";
 
 client.once(Events.ClientReady, () => {
@@ -78,14 +81,38 @@ client.on(Events.MessageCreate, async (message: Message): Promise<any> => {
       await DestroyVoiceChannel(message.member?.voice.channel as VoiceChannel)
     );
   }
-  if (command.startsWith("pasang-url")) {
-    const url = message.content.split(" ")[1];
-    console.log(url);
-    await InitiateVoiceChannel<Message>(
-      url,
-      message,
-      message.member?.voice.channel as VoiceChannel
-    );
+  if (command.startsWith("pasang-lagu")) {
+    const msg = message.content.split(" ")[1];
+    // await InitiateVoiceChannel<Message>(
+    //   url,
+    //   message,
+    //   message.member?.voice.channel as VoiceChannel
+    // );
+
+    try {
+      const searchResults = await ytsr(msg);
+
+      if (searchResults.items.length === 0) {
+        message.reply("No search results found.");
+        return;
+      }
+
+      const rows: any = searchResults.items
+        .slice(0, 5) // Limit to the top 5 results
+        .map((result: any, index: any) => {
+          const button = new ButtonBuilder()
+            .setCustomId(`pasang-lagu:${result.url}`)
+            .setLabel(`${index + 1}. ${result.title}`)
+            .setStyle(ButtonStyle.Primary);
+
+          return new ActionRowBuilder().addComponents(button);
+        });
+
+      message.reply({ content: "Select a video to play:", components: rows });
+    } catch (error) {
+      console.error(error);
+      message.reply("An error occurred while searching for YouTube videos.");
+    }
   }
 });
 
@@ -133,6 +160,17 @@ client.on(Events.InteractionCreate, async (interaction) => {
     );
   }
 
+  if (customId.startsWith("pasang-lagu:")) {
+    const url = customId.slice(12);
+    await interaction.reply("Masang lagu...");
+    InitiateVoiceChannel<ButtonInteraction<CacheType>>(
+      url,
+      interaction,
+      voiceChannel,
+      true
+    );
+  }
+
   if (customId === ButtonId.tutup) {
     await interaction.reply(await DestroyVoiceChannel(voiceChannel));
   }
@@ -140,7 +178,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 async function InitiateVoiceChannel<
   T extends ButtonInteraction<CacheType> | Message
->(url: string, arg: T, voiceChannel: VoiceChannel) {
+>(url: string, arg: T, voiceChannel: VoiceChannel, isYoutube = false) {
   let isMessage = false;
 
   if ((arg as any) instanceof Message) {
@@ -155,16 +193,16 @@ async function InitiateVoiceChannel<
     });
 
     let stream: any;
-    if (isMessage) {
+    if (isYoutube) {
       stream = ytdl(url, { filter: "audioonly", quality: "highestaudio" });
     }
 
-    const audioResource = createAudioResource(isMessage ? stream : url, {
+    const audioResource = createAudioResource(isYoutube ? stream : url, {
       inlineVolume: true,
     });
 
     const audioPlayer = createAudioPlayer(
-      isMessage
+      isYoutube
         ? {
             behaviors: {
               noSubscriber: NoSubscriberBehavior.Pause,
