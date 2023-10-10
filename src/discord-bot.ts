@@ -87,7 +87,8 @@ if(command.startsWith("pasang-url")) {
     await InitiateVoiceChannel<Message>(
       message.content.split(" ")[1],
       message,
-      message.member?.voice.channel as VoiceChannel
+      message.member?.voice.channel as VoiceChannel,
+      true
     );
 }
 
