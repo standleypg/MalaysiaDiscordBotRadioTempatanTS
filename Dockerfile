@@ -10,6 +10,9 @@ COPY package*.json ./
 # Install the dependencies
 RUN npm install
 
+# Install FFmpeg (add this line to install FFmpeg)
+RUN apt-get update && apt-get install -y ffmpeg
+
 # Copy the rest of the application code to the container
 COPY . .
 
