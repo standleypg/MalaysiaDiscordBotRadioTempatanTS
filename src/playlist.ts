@@ -14,7 +14,6 @@ interface Song {
 }
 export const playlist: Song[] = [];
 
-// export const playlist: string[] = [];
 let previousPlaylistLength = playlist.length;
 
 export async function onPlaylistChanged(
