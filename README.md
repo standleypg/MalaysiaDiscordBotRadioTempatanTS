@@ -1,12 +1,10 @@
 # Radio Tempatan Malaysia Discord App
 
-
-
-This is a simple radio application that allows users to listen to their favorite radio channels. To add your own radio channel, simply add the URL to the `config.json` file.
-
 ***Disclaimer: This code is meant for educational purposes only. Please do not use this code for malicious purposes or to violate the Discord, Youtube, RTM and Astro Terms of Service.***
 
 ***Credit to [RTM Malaysia](https://www.rtm.gov.my) and [HITZ FM](https://hitz.syok.my/) for the radio URL.*** 
+
+This is a simple radio application that allows users to listen to their favorite radio channels and play music yt audio. To add your own radio channel, simply add the URL to the `config.json` file.
 
 ### Adding Your Own Radio Channel
 
@@ -25,4 +23,3 @@ docker run --name <docker_container_name> -p <port>:<port>  <docker_image_name_o
 
 That's it! Your radio channel will now be available in the application.
 
-**Note that you need to host the radio channel yourself. **Also**, you need ffmpeg installed on your server.
