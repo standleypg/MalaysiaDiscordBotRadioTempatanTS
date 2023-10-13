@@ -4,7 +4,7 @@ import {
   Message,
   VoiceChannel,
 } from "discord.js";
-import { InitiateVoiceChannel } from "./Handlers/voiceChannelInitiator";
+import { InitiateVoiceChannel } from "./Handlers/initiator";
 
 interface Song {
   url: string;

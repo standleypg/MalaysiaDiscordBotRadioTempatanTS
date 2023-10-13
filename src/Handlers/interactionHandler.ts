@@ -1,7 +1,7 @@
 import { ButtonInteraction, CacheType, VoiceChannel } from "discord.js";
 import { Radios } from "../Constants/radio-button-data";
-import { InitiateVoiceChannel } from "./voiceChannelInitiator";
-import { DestroyVoiceChannel } from "./voiceChannelDispossal";
+import { InitiateVoiceChannel } from "./initiator";
+import { DestroyVoiceChannel } from "./dispossal";
 import { onPlaylistChanged, playlist as playlist } from "../playlist";
 
 export async function InteractionHandler(

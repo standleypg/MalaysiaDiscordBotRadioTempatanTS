@@ -6,8 +6,8 @@ import {
   VoiceChannel,
 } from "discord.js";
 import { helpMessage } from "../Constants/helpMessage";
-import { InitiateVoiceChannel } from "./voiceChannelInitiator";
-import { DestroyVoiceChannel } from "./voiceChannelDispossal";
+import { InitiateVoiceChannel } from "./initiator";
+import { DestroyVoiceChannel } from "./dispossal";
 import ytsr from "ytsr";
 import { RadiosButtonRows } from "../Constants/radio-button-data";
 import { onPlaylistChanged, playlist } from "../playlist";
